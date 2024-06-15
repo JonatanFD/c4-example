@@ -36,14 +36,17 @@ namespace c4_model_template
       ContextDiagram contextDiagram = new ContextDiagram(this);
       ContainerDiagram containerDiagram = new ContainerDiagram(this, contextDiagram);
 
-      SomeComponent someComponent = new SomeComponent(this, containerDiagram, contextDiagram);
+
+      APIRestComponentDiagram apiRestComponentDiagram = new APIRestComponentDiagram(this, contextDiagram, containerDiagram);
+      // SomeComponent someComponent = new SomeComponent(this, containerDiagram, contextDiagram);
 
 
       contextDiagram.Generate();
       containerDiagram.Generate();
+      apiRestComponentDiagram.Generate();
 
-      someComponent.Generate();
-      
+      // someComponent.Generate();
+
 
       StructurizrClient.PutWorkspace(workspaceId, Workspace);
     }

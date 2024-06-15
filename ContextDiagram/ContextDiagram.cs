@@ -10,14 +10,18 @@ namespace ctx_diagram
     private readonly C4 c4;
 
     // Se coloca los person o lo que interactuan con el sistema
-    public Person SomePerson { get; private set; }
-    public Person SomeMan { get; private set; }
+    public Person Admin { get; private set; }
+    public Person Subscriber { get; private set; }
 
 
     // Los sistemas que interactuan
-    public SoftwareSystem SomeMain { get; private set; }
-    public SoftwareSystem SomeSystem { get; private set; }
-    public SoftwareSystem SomeThird { get; private set; }
+    public SoftwareSystem System { get; private set; }
+
+
+    public SoftwareSystem Twilio { get; private set; }
+    public SoftwareSystem SendGrind { get; private set; }
+    public SoftwareSystem Fifa { get; private set; }
+    public SoftwareSystem Paypal { get; private set; }
 
     public ContextDiagram(C4 c4)
     {
@@ -27,22 +31,26 @@ namespace ctx_diagram
     public void Generate() {
       // Se generan los elementos del sistema como la persona y los sistemas con los que interactua
       // (name, description)
-      SomePerson = c4.Model.AddPerson("Some Person", "Some person that interacts with the system");
-      SomeMan = c4.Model.AddPerson("Some Man", "Some description");
+      Admin = c4.Model.AddPerson("Administrator", "User who manages the system.");
+      Subscriber = c4.Model.AddPerson("Subscriber", "User who consumes the system.");
 
-      SomeMain = c4.Model.AddSoftwareSystem("Some Main", "Some description");
-      SomeSystem = c4.Model.AddSoftwareSystem("Some System", "Some description");
-      SomeThird = c4.Model.AddSoftwareSystem("Some Third", "Some description");
+      System = c4.Model.AddSoftwareSystem("System", "System to manage tickets.");
+      Twilio = c4.Model.AddSoftwareSystem("Twilio API", "Use to send SMS through the WhatsApp API.");
+      SendGrind = c4.Model.AddSoftwareSystem("SendGrind API", "Use to send emails.");
+      Paypal = c4.Model.AddSoftwareSystem("Paypal API", "Use to pay tickets.");
+      Fifa = c4.Model.AddSoftwareSystem("FIFA", "Use the system to get information about the games.");
 
       // Se crean las relaciones entre los elementos
-      SomePerson.Uses(SomeMain, "Por que usa el sistema?");
-      SomeMan.Uses(SomeMain, "Por que usa el sistema?");
+      Admin.Uses(System, "Manage the system and their features.");
+      Subscriber.Uses(System, "Use the system to get information about the games.");
 
-      SomeMain.Uses(SomeSystem, "Por que usa el sistema?");
-      SomeMain.Uses(SomeThird, "Por que usa el sistema?");
+      System.Uses(Twilio, "To send SMS through the WhatsApp API.");
+      System.Uses(SendGrind, "To send emails.");
+      System.Uses(Paypal, "To pay tickets.");
+      System.Uses(Fifa, "To get information about the games, teams, players, etc.");
       
 
-      SystemContextView contextView = c4.ViewSet.CreateSystemContextView(SomeMain, "Context", "Diagram Context");
+      SystemContextView contextView = c4.ViewSet.CreateSystemContextView(System, "Context", "Diagram Context");
       contextView.AddAllPeople();
       contextView.AddAllSoftwareSystems();
     }

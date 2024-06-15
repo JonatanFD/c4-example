@@ -17,3 +17,4 @@ C:\Users\nanab\Desktop\c4-model-template\obj\Debug\net8.0\refint\c4-model-templa
 C:\Users\nanab\Desktop\c4-model-template\obj\Debug\net8.0\c4-model-template.pdb
 C:\Users\nanab\Desktop\c4-model-template\obj\Debug\net8.0\c4-model-template.genruntimeconfig.cache
 C:\Users\nanab\Desktop\c4-model-template\obj\Debug\net8.0\ref\c4-model-template.dll
+C:\Users\nanab\Desktop\c4-model-template\obj\Debug\net8.0\c4-model-template.sourcelink.json

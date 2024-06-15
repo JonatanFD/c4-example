@@ -12,14 +12,13 @@ namespace ctn_diagram
     private readonly C4 c4;
     private readonly ContextDiagram contextDiagram;
 
-
-    public Container SomeContainer { get; private set; }
-    public Container SomeContainer2 { get; private set; }
-    public Container SomeContainer3 { get; private set; }
-
-
-    // Api
+    public Container MySQL { get; private set; }
+    public Container LandingPage { get; private set; }
+    public Container WebApplication { get; private set; }
+    public Container MobileApplication { get; private set; }
     public Container ApiRest { get; private set; }
+    
+
 
     public ContainerDiagram(C4 c4, ContextDiagram contextDiagram)
     {
@@ -29,36 +28,39 @@ namespace ctn_diagram
 
     public void Generate()
     {
-
       // Se generan los elementos del sistema como la persona y los sistemas con los que interactua
-      // (name, description)
-      SomeContainer = contextDiagram.SomeMain.AddContainer("Some Container", "Some description", "Some Technology");
-      SomeContainer2 = contextDiagram.SomeMain.AddContainer("Some Container 2", "Some description", "Some Technology");
-      SomeContainer3 = contextDiagram.SomeMain.AddContainer("Some Container 3", "Some description", "Some Technology");
-
-      ApiRest = contextDiagram.SomeMain.AddContainer("Api Rest", "Some description", "Some Technology");
-
-      // se crean las relaciones entre los elementos
-      contextDiagram.SomePerson.Uses(SomeContainer, "Use");
-      contextDiagram.SomeMan.Uses(SomeContainer, "Use");
-      contextDiagram.SomePerson.Uses(SomeContainer2, "Use");
-      contextDiagram.SomeMan.Uses(SomeContainer2, "Use");
-      contextDiagram.SomePerson.Uses(SomeContainer3, "Use");
-      contextDiagram.SomeMan.Uses(SomeContainer3, "Use");
+      MySQL = contextDiagram.System.AddContainer("MySQL", "Database", "MySQL");
+      LandingPage = contextDiagram.System.AddContainer("Landing Page", "Web Page", "Angular 17");
+      WebApplication = contextDiagram.System.AddContainer("Web Application", "Web Application", "Angular 17");
+      MobileApplication = contextDiagram.System.AddContainer("Mobile Application", "Mobile Application", "Flutter");
+      ApiRest = contextDiagram.System.AddContainer("Api Rest", "Api Rest", ".Net 8");
 
 
-      // se crean las relaciones entre los contenedores con los servicios externo si se necesario
-      SomeContainer.Uses(ApiRest, "API Request", "JSON HTTPS");
-      SomeContainer2.Uses(ApiRest, "API Request", "JSON HTTPS");
-      SomeContainer3.Uses(ApiRest, "API Request", "JSON HTTPS");
+      contextDiagram.Admin.Uses(LandingPage, "Use");
+      contextDiagram.Admin.Uses(WebApplication, "Use");
+      contextDiagram.Admin.Uses(MobileApplication, "Use");
 
-      ApiRest.Uses(contextDiagram.SomeThird, "API Request", "JSON HTTPS");
-      ApiRest.Uses(contextDiagram.SomeSystem, "API Request", "JSON HTTPS");
+      contextDiagram.Subscriber.Uses(LandingPage, "Use");
+      contextDiagram.Subscriber.Uses(WebApplication, "Use");
+      contextDiagram.Subscriber.Uses(MobileApplication, "Use");
+      
+      WebApplication.Uses(ApiRest, "Use");
+      MobileApplication.Uses(ApiRest, "Use");
+      ApiRest.Uses(MySQL, "Use");
 
-      ContainerView containerView = c4.ViewSet.CreateContainerView(contextDiagram.SomeMain, "Containers", "Diagram Containers");
+      ApiRest.Uses(contextDiagram.Paypal, "Use", "HTTPS JSON");
+      ApiRest.Uses(contextDiagram.Twilio, "Use", "HTTPS JSON");
+      ApiRest.Uses(contextDiagram.Fifa, "Use", "HTTPS JSON");
+      ApiRest.Uses(contextDiagram.SendGrind, "Use", "HTTPS JSON");
+
+      ContainerView containerView = c4.ViewSet.CreateContainerView(contextDiagram.System, "Container Diagram", "Container Diagram");
       containerView.AddAllContainers();
-      containerView.AddAllPeople();
-      containerView.AddAllSoftwareSystems();
+      containerView.Add(contextDiagram.Admin);
+      containerView.Add(contextDiagram.Subscriber);
+      containerView.Add(contextDiagram.Paypal);
+      containerView.Add(contextDiagram.Twilio);
+      containerView.Add(contextDiagram.Fifa);
+      containerView.Add(contextDiagram.SendGrind);
     }
 
 
