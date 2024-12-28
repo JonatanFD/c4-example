@@ -5328,19 +5328,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\nanab\\.nuget\\packages\\": {}
+    "C:\\Users\\mainc\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\nanab\\Desktop\\c4-model-template\\c4-model-template.csproj",
+      "projectUniqueName": "C:\\Users\\mainc\\Desktop\\dev\\rata\\c4-example\\c4-model-template.csproj",
       "projectName": "c4-model-template",
-      "projectPath": "C:\\Users\\nanab\\Desktop\\c4-model-template\\c4-model-template.csproj",
-      "packagesPath": "C:\\Users\\nanab\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\nanab\\Desktop\\c4-model-template\\obj\\",
+      "projectPath": "C:\\Users\\mainc\\Desktop\\dev\\rata\\c4-example\\c4-model-template.csproj",
+      "packagesPath": "C:\\Users\\mainc\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\mainc\\Desktop\\dev\\rata\\c4-example\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\nanab\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\mainc\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -5348,6 +5353,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "c:\\program files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -5392,7 +5398,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "c:\\program files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

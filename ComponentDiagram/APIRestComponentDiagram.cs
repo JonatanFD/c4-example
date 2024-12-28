@@ -14,19 +14,14 @@ namespace component_diagram
         private readonly C4 c4;
         private readonly ContextDiagram contextDiagram;
         private readonly ContainerDiagram containerDiagram;
-        private readonly string componentTag = "Component";
         // 
         // componentes de la api rest (los contextos)
-        public Component League { get; private set; }
-        public Component Club_Players { get; private set; }
-        public Component Signings_and_Hiring { get; private set; }
-        public Component Stadium { get; private set; }
-        public Component FanClub { get; private set; }
-        public Component GamesSchedule { get; private set; }
-        public Component Statistics { get; private set; }
-        public Component Security { get; private set; }
-        public Component Subscriptions { get; private set; }
+        public Component PlantOperations { get; private set; }
+        public Component RegulatoryCompliance { get; private set; }
+        public Component ResourceOptimization { get; private set; }
+        public Component IncidentManagement { get; private set; }
         public Component Notifications { get; private set; }
+        public Component IdentityAccessManagement { get; private set; }
 
 
         // contextos
@@ -35,47 +30,38 @@ namespace component_diagram
             this.c4 = c4;
             this.contextDiagram = contextDiagram;
             this.containerDiagram = containerDiagram;
+        }   
+
+
+        public void ApplyStyles() {
+            PlantOperations.AddTags(PlantOperations.Name);
+            RegulatoryCompliance.AddTags(RegulatoryCompliance.Name);
+            ResourceOptimization.AddTags(ResourceOptimization.Name);
+            IncidentManagement.AddTags(IncidentManagement.Name);
+            Notifications.AddTags(Notifications.Name);
+            IdentityAccessManagement.AddTags(IdentityAccessManagement.Name);
+
+
+
+
         }
 
         public void Generate()
         {
             // se crean los componentes
-            League = containerDiagram.ApiRest.AddComponent("League", "League", "League");
-            Club_Players = containerDiagram.ApiRest.AddComponent("Club Players", "Club Players", "Club Players");
-            Signings_and_Hiring = containerDiagram.ApiRest.AddComponent("Signings and Hiring", "Signings and Hiring", "Signings and Hiring");
-            Stadium = containerDiagram.ApiRest.AddComponent("Stadium", "Stadium", "Stadium");
-            FanClub = containerDiagram.ApiRest.AddComponent("Fan Club", "Fan Club", "Fan Club");
-            GamesSchedule = containerDiagram.ApiRest.AddComponent("Games Schedule", "Games Schedule", "Games Schedule");
-            Statistics = containerDiagram.ApiRest.AddComponent("Statistics", "Statistics", "Statistics");
-            Security = containerDiagram.ApiRest.AddComponent("Security", "Security", "Security");
-            Subscriptions = containerDiagram.ApiRest.AddComponent("Subscriptions", "Subscriptions", "Subscriptions");
+            PlantOperations = containerDiagram.ApiRest.AddComponent("Plant Operations", "Plant Operations", "Plant Operations");
+            RegulatoryCompliance = containerDiagram.ApiRest.AddComponent("Regulatory Compliance", "Regulatory Compliance", "Regulatory Compliance");
+            ResourceOptimization = containerDiagram.ApiRest.AddComponent("Resource Optimization", "Resource Optimization", "Resource Optimization");
+            IncidentManagement = containerDiagram.ApiRest.AddComponent("Incident Management", "Incident Management", "Incident Management");
             Notifications = containerDiagram.ApiRest.AddComponent("Notifications", "Notifications", "Notifications");
+            IdentityAccessManagement = containerDiagram.ApiRest.AddComponent("Identity Access Management", "Identity Access Management", "Identity Access Management");
 
             // se crean las relaciones
 
-            League.Uses(containerDiagram.MySQL, "Use");
-            League.Uses(contextDiagram.Fifa, "Use", "HTTPS JSON");
-
-            Club_Players.Uses(contextDiagram.Fifa, "Use", "HTTPS JSON");
+            RegulatoryCompliance.Uses(contextDiagram.GovernmentAPI, "Use", "HTTPS JSON");
 
             Notifications.Uses(contextDiagram.Twilio, "Use", "HTTPS JSON");
             Notifications.Uses(contextDiagram.SendGrind, "Use", "HTTPS JSON");
-
-            Signings_and_Hiring.Uses(contextDiagram.Fifa, "Use", "HTTPS JSON");
-
-            GamesSchedule.Uses(contextDiagram.Twilio, "Use", "HTTPS JSON");
-            GamesSchedule.Uses(contextDiagram.Fifa, "Use", "HTTPS JSON");
-            GamesSchedule.Uses(contextDiagram.SendGrind, "Use", "HTTPS JSON");
-
-            Subscriptions.Uses(contextDiagram.Paypal, "Use", "HTTPS JSON");
-            Subscriptions.Uses(containerDiagram.MySQL, "Use", "HTTPS JSON");
-
-            Statistics.Uses(contextDiagram.Fifa, "Use", "HTTPS JSON");
-            Statistics.Uses(containerDiagram.MySQL, "Use");
-
-            FanClub.Uses(contextDiagram.Fifa, "Use", "HTTPS JSON");
-
-
 
             // publish, se agregan los contextos 
             string title = "API Rest Component Diagram";
@@ -84,10 +70,8 @@ namespace component_diagram
 
             componentView.AddAllComponents();
             componentView.Add(contextDiagram.Twilio);
-            componentView.Add(contextDiagram.Paypal);
             componentView.Add(contextDiagram.SendGrind);
-            componentView.Add(contextDiagram.Fifa);
-            componentView.Add(containerDiagram.MySQL);
+            componentView.Add(contextDiagram.GovernmentAPI);
 
         }
 
