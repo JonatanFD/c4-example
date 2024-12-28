@@ -1,0 +1,172 @@
+@startuml
+package "Bounded Context: Plant Operations" {
+    ' State Pattern for Plant Status
+    interface PlantState {
+        +handleOperation(): void
+        +handleMaintenance(): void
+        +handleEmergency(): void
+    }
+
+    class OperatingState implements PlantState {
+        +handleOperation(): void
+        +handleMaintenance(): void
+        +handleEmergency(): void
+    }
+
+    class MaintenanceState implements PlantState {
+        +handleOperation(): void
+        +handleMaintenance(): void
+        +handleEmergency(): void
+    }
+
+    class StoppedState implements PlantState {
+        +handleOperation(): void
+        +handleMaintenance(): void
+        +handleEmergency(): void
+    }
+
+    ' Observer Pattern for Plant Monitoring
+    interface PlantObserver {
+        +update(metrics: PlantMetrics): void
+    }
+
+    class MonitoringSystem implements PlantObserver {
+        +update(metrics: PlantMetrics): void
+        +alertOperators(): void
+    }
+
+    class AlertSystem implements PlantObserver {
+        +update(metrics: PlantMetrics): void
+        +sendAlert(): void
+    }
+
+    ' Strategy Pattern for Different Plant Types
+    interface GenerationStrategy {
+        +calculateOutput(): double
+        +optimize(): void
+    }
+
+    class WindGenerationStrategy implements GenerationStrategy {
+        +calculateOutput(): double
+        +optimize(): void
+    }
+
+    class SolarGenerationStrategy implements GenerationStrategy {
+        +calculateOutput(): double
+        +optimize(): void
+    }
+
+    ' Factory Method for Equipment Creation
+    abstract class EquipmentFactory {
+        +{abstract} createEquipment(): Equipment
+        +configureEquipment(): void
+    }
+
+    class GeneratorFactory extends EquipmentFactory {
+        +createEquipment(): Equipment
+    }
+
+    class MonitoringEquipmentFactory extends EquipmentFactory {
+        +createEquipment(): Equipment
+    }
+
+    ' Command Pattern for Operations
+    interface Command {
+        +execute(): void
+        +undo(): void
+    }
+
+    class StartOperationCommand implements Command {
+        -plant: Plant
+        +execute(): void
+        +undo(): void
+    }
+
+    class StopOperationCommand implements Command {
+        -plant: Plant
+        +execute(): void
+        +undo(): void
+    }
+
+    ' Main Domain Classes with Improvements
+    class Plant {
+        -id: UUID
+        -name: String
+        -currentState: PlantState
+        -generationStrategy: GenerationStrategy
+        -observers: List<PlantObserver>
+        -metrics: PlantMetrics
+        -location: Location
+        -equipment: List<Equipment>
+        +setState(state: PlantState): void
+        +addObserver(observer: PlantObserver): void
+        +removeObserver(observer: PlantObserver): void
+        +notifyObservers(): void
+        +executeCommand(command: Command): void
+        +getMetrics(): PlantMetrics
+    }
+
+    class PlantMetrics {
+        +currentGeneration: double
+        +efficiency: double
+        +temperature: double
+        +pressure: double
+        +updateMetrics(): void
+    }
+
+    class Equipment {
+        -id: UUID
+        -name: String
+        -status: EquipmentStatus
+        -specifications: EquipmentSpecifications
+        +updateStatus(status: EquipmentStatus): void
+        +performMaintenance(): void
+        +calibrate(): void
+    }
+
+    ' Singleton for Authorization Manager
+    class AuthorizationManager {
+        -instance: AuthorizationManager
+        -authorizations: Map<UUID, Authorization>
+        +getInstance(): AuthorizationManager
+        +createAuthorization(operator: Operator): Authorization
+        +processAuthorization(id: UUID): void
+    }
+
+    class Authorization {
+        -id: UUID
+        -creationDate: DateTime
+        -status: AuthorizationStatus
+        -requester: Operator
+        -reviewer: Administrator
+        +approve(): void
+        +reject(): void
+    }
+
+    ' Composite Pattern for Equipment Groups
+    interface EquipmentComponent {
+        +getStatus(): EquipmentStatus
+        +maintenance(): void
+    }
+
+    class EquipmentGroup implements EquipmentComponent {
+        -equipment: List<EquipmentComponent>
+        +addEquipment(equipment: EquipmentComponent): void
+        +removeEquipment(equipment: EquipmentComponent): void
+        +getStatus(): EquipmentStatus
+        +maintenance(): void
+    }
+
+    Equipment --|> EquipmentComponent
+
+    ' Relationships
+    Plant o-- PlantState
+    Plant o-- GenerationStrategy
+    Plant o-- "1..*" Equipment
+    Plant o-- "1..*" PlantObserver
+    Plant --> PlantMetrics
+    AuthorizationManager "1" o-- "*" Authorization
+    Equipment "*" --o "1" EquipmentGroup
+    Plant --> "*" Command
+}
+@enduml

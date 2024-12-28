@@ -40,8 +40,8 @@ namespace ctx_diagram
       Styles styles = c4.ViewSet.Configuration.Styles;
 
       // Personas
-      styles.Add(new ElementStyle("Plant Operator") { Background = "#084C61", Color = "#FFFFFF", Shape = Shape.Person, Icon = "https://example.com/operator-icon.png" });
-      styles.Add(new ElementStyle("Admin") { Background = "#4CAF50", Color = "#FFFFFF", Shape = Shape.Person, Icon = "https://example.com/admin-icon.png" });
+      styles.Add(new ElementStyle("Plant Operator") { Background = "#084C61", Color = "#FFFFFF", Shape = Shape.Person });
+      styles.Add(new ElementStyle("Admin") { Background = "#4CAF50", Color = "#FFFFFF", Shape = Shape.Person});
 
       // Software Systems
       styles.Add(new ElementStyle("GEGMS") { Background = "#1E88E5", Color = "#FFFFFF", Shape = Shape.RoundedBox, FontSize = 24 });
